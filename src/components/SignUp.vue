@@ -1,12 +1,14 @@
 <template>
-  <div id="login">
-    <h1>Log In</h1>
+  <div id="sign-up">
+    <h1>Create Account</h1>
+    <input type="text" v-model="username" placeholder="Username">
+    <br>
     <input type="text" v-model="email" placeholder="Email">
     <br>
     <input type="password" v-model="password" placeholder="Password">
     <br>
     <p v-if="showError">Please fill out all fields</p>
-    <button v-on:click="login">Log In</button>
+    <button v-on:click="signUp">Sign Up</button>
   </div>
 </template>
 
@@ -15,26 +17,31 @@ import firebase from "firebase";
 import { mapActions } from "vuex";
 
 export default {
-  name: "Login",
+  name: "SignUp",
   components: {},
   data: function() {
     return {
       email: "",
       password: "",
+      username: "",
       showError: false
     };
   },
   methods: {
     ...mapActions(["setMessage"]),
-    login: function() {
+
+    signUp: function() {
       if (this.validFields) {
         this.showError = false;
         firebase
           .auth()
-          .signInWithEmailAndPassword(this.email, this.password)
+          .createUserWithEmailAndPassword(this.email, this.password)
           .then(
             user => {
-              this.setMessage({ text: "Log in successful", type: "success" });
+              firebase.auth().currentUser.updateProfile({
+                displayName: this.username
+              });
+              this.setMessage({ text: "Account Created!", type: "success" });
               this.$router.replace("/");
             },
             err => {
@@ -48,7 +55,7 @@ export default {
   },
   computed: {
     validFields() {
-      return this.email && this.password;
+      return this.email && this.password && this.username;
     }
   }
 };

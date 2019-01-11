@@ -1,4 +1,15 @@
-export const set = (state, content) => {
-  state[content.var] = content.val;
-  console.log(`state.${content.var} set to ${JSON.stringify(content.val)}`);
+export const setGames = (state, games) => {
+  state.games = games;
+};
+
+export const setPlayers = (state, players) => {
+  state.players = players;
+};
+
+export const setUser = (state, user) => {
+  state.currentUser = user;
+};
+
+export const setMessage = (state, message) => {
+  state.message = message;
 };

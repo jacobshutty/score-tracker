@@ -29,30 +29,30 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import { orderBy } from 'lodash';
+import { mapState, mapActions } from "vuex";
+import { orderBy } from "lodash";
 
 export default {
-  name: 'Leaderboard',
+  name: "Leaderboard",
   components: {},
   data: function() {
     return {};
   },
   methods: {
     ...mapActions({
-      getPlayers: 'getPlayers',
-    }),
+      getPlayers: "getPlayers"
+    })
   },
   computed: {
-    ...mapState(['players']),
+    ...mapState(["players"]),
     transformedPlayers() {
       let orderedPlayers = [];
       for (var i in this.players) {
         orderedPlayers.push({ name: i, ...this.players[i] });
       }
-      orderedPlayers = orderBy(orderedPlayers, ['wins'], ['desc']);
+      orderedPlayers = orderBy(orderedPlayers, ["wins"], ["desc"]);
       return orderedPlayers;
-    },
+    }
   },
   mounted() {
     this.getPlayers();
@@ -61,12 +61,12 @@ export default {
     friendlyDate: function(value) {
       let time = new Date(value);
       return time.toString();
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style>
+<style scoped>
 #leaderboard {
   text-align: center;
 }

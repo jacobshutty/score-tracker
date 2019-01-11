@@ -6,7 +6,7 @@ export const getPlayers = ({ commit }) => {
     .ref("players")
     .limitToLast(100)
     .once("value", snapshot => {
-      commit("set", { var: "players", val: snapshot.val() });
+      commit("setPlayers", snapshot.val());
     });
 };
 
@@ -69,6 +69,25 @@ export const getGames = ({ commit }) => {
     .ref("games")
     .orderByChild("createdAt")
     .once("value", snapshot => {
-      commit("set", { var: "games", val: snapshot.val() });
+      commit("setGames", snapshot.val());
+    });
+};
+
+export const setUser = ({ commit }, user) => {
+  commit("setUser", user);
+};
+
+export const setMessage = ({ commit }, message) => {
+  commit("setMessage", message);
+};
+
+export const logout = ({ commit }) => {
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      commit("setUser", null);
+      console.log("user set to null");
+      commit("setMessage", { text: "Log out successful", type: "success" });
     });
 };

@@ -4,6 +4,8 @@ import Versus from "./components/Versus";
 import Leaderboard from "./components/Leaderboard";
 import History from "./components/History";
 import Login from "./components/Login";
+import SignUp from "./components/SignUp";
+
 import AddPlayer from "./components/AddPlayer";
 
 Vue.use(Router);
@@ -30,6 +32,11 @@ export default new Router({
       path: "/login",
       name: "Login",
       component: Login,
+    },
+    {
+      path: "/sign-up",
+      name: "SignUp",
+      component: SignUp,
     },
     {
       path: "/add-player",
